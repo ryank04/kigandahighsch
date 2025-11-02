@@ -1,0 +1,676 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Announcements - Kiganda High School</title>
+    <style>
+        :root {
+            --primary: #1a4b8c;
+            --secondary: #e6a919;
+            --light: #f8f9fa;
+            --dark: #343a40;
+            --success: #28a745;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f5f5f5;
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+        
+        header {
+            background-color: var(--primary);
+            color: white;
+            padding: 1rem 0;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+        }
+        
+        .logo img {
+            height: 60px;
+            margin-right: 15px;
+        }
+        
+        .logo h1 {
+            font-size: 1.8rem;
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+        
+        nav ul li {
+            margin-left: 20px;
+        }
+        
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+        
+        nav ul li a:hover {
+            color: var(--secondary);
+        }
+        
+        .page-header {
+            background: linear-gradient(rgba(34, 210, 148, 0.8), rgba(104, 41, 183, 0.9)), url(school\ view.jpg) no-repeat center center/cover;
+            height: 40vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: white;
+        }
+        
+        .page-header h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        .breadcrumb {
+            background: var(--light);
+            padding: 1rem 0;
+        }
+        
+        .breadcrumb ul {
+            display: flex;
+            list-style: none;
+        }
+        
+        .breadcrumb ul li {
+            margin-right: 10px;
+        }
+        
+        .breadcrumb ul li:after {
+            content: ">";
+            margin-left: 10px;
+        }
+        
+        .breadcrumb ul li:last-child:after {
+            content: "";
+        }
+        
+        .breadcrumb a {
+            color: var(--primary);
+            text-decoration: none;
+        }
+        
+        .breadcrumb a:hover {
+            text-decoration: underline;
+        }
+        
+        .announcements-content {
+            padding: 5rem 0;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+        
+        .section-title h2 {
+            font-size: 2.5rem;
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+        
+        .section-title p {
+            color: #666;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+        
+        .announcements-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 3rem;
+        }
+        
+        .announcements-list {
+            background: white;
+            border-radius: 5px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            overflow: hidden;
+        }
+        
+        .announcement-item {
+            padding: 2rem;
+            border-bottom: 1px solid #eee;
+            transition: background 0.3s;
+        }
+        
+        .announcement-item:hover {
+            background: #f9f9f9;
+        }
+        
+        .announcement-item:last-child {
+            border-bottom: none;
+        }
+        
+        .announcement-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+        
+        .announcement-title {
+            color: var(--primary);
+            font-size: 1.3rem;
+        }
+        
+        .announcement-date {
+            color: #666;
+            font-size: 0.9rem;
+        }
+        
+        .announcement-content p {
+            margin-bottom: 1rem;
+        }
+        
+        .read-more {
+            color: var(--secondary);
+            text-decoration: none;
+            font-weight: 500;
+        }
+        
+        .read-more:hover {
+            text-decoration: underline;
+        }
+        
+        .sidebar {
+            background: white;
+            border-radius: 5px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            padding: 2rem;
+        }
+        
+        .sidebar h3 {
+            color: var(--primary);
+            margin-bottom: 1.5rem;
+            padding-bottom: 10px;
+            border-bottom: 2px solid var(--secondary);
+        }
+        
+        .upcoming-events {
+            list-style: none;
+        }
+        
+        .event-item {
+            padding: 1rem 0;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .event-item:last-child {
+            border-bottom: none;
+        }
+        
+        .event-date {
+            display: inline-block;
+            background: var(--primary);
+            color: white;
+            padding: 5px 10px;
+            border-radius: 3px;
+            font-size: 0.8rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .event-title {
+            font-weight: 500;
+            margin-bottom: 0.5rem;
+        }
+        
+        .quick-links {
+            list-style: none;
+            margin-top: 2rem;
+        }
+        
+        .quick-links li {
+            margin-bottom: 0.8rem;
+        }
+        
+        .quick-links a {
+            color: var(--primary);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+        }
+        
+        .quick-links a:before {
+            content: "›";
+            margin-right: 10px;
+            color: var(--secondary);
+        }
+        
+        .quick-links a:hover {
+            text-decoration: underline;
+        }
+        
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.7);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .modal-content {
+            background: white;
+            width: 90%;
+            max-width: 700px;
+            border-radius: 5px;
+            padding: 2rem;
+            position: relative;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+        
+        .close-modal {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: #666;
+        }
+        
+        .modal-title {
+            color: var(--primary);
+            margin-bottom: 1rem;
+            padding-right: 30px;
+        }
+        
+        .modal-date {
+            color: #666;
+            margin-bottom: 1.5rem;
+        }
+        
+        footer {
+            background: var(--dark);
+            color: white;
+            padding: 3rem 0 1rem;
+        }
+        
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+        
+        .footer-section h3 {
+            margin-bottom: 1.5rem;
+            color: var(--secondary);
+        }
+        
+        .footer-section p, .footer-section a {
+            color: #bbb;
+            margin-bottom: 0.5rem;
+            display: block;
+            text-decoration: none;
+        }
+        
+        .footer-section a:hover {
+            color: white;
+        }
+        
+        .copyright {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid #444;
+            color: #bbb;
+        }
+        
+        .mobile-menu {
+            display: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+        
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .logo {
+                justify-content: center;
+                margin-bottom: 1rem;
+            }
+            
+            nav ul {
+                flex-direction: column;
+            }
+            
+            nav ul li {
+                margin: 10px 0;
+            }
+            
+            .mobile-menu {
+                display: block;
+                position: absolute;
+                top: 20px;
+                right: 20px;
+            }
+            
+            .announcements-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <!-- Placeholder for school logo -->
+                    <img src="badge.png" altwidth: 60px; height: 60px; background: var(--secondary); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-weight: bold;"></div>
+                    <h1>Kiganda High School</h1>
+                </div>
+                <div class="mobile-menu">☰</div>
+                <nav>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="About.html">About</a></li>
+                        <li><a href="Services.html">Services</a></li>
+                        <li><a href="Announcements.html">Announcements</a></li>
+                        <li><a href="Contact.html">Contact</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <section class="page-header">
+        <div class="container">
+            <h2>School Announcements</h2>
+        </div>
+    </section>
+
+    <section class="announcements-content">
+        <div class="container">
+            <div class="section-title">
+                <h2>Latest Updates</h2>
+                <p>Stay informed about important school news, events, and announcements.</p>
+            </div>
+            
+            <div class="announcements-grid">
+                <div class="announcements-list">
+                    <div class="announcement-item">
+                        <div class="announcement-header">
+                            <h3 class="announcement-title">Term 3 Opening Date</h3>
+                            <span class="announcement-date">September 5, 2025</span>
+                        </div>
+                        <div class="announcement-content">
+                            <p>All students are expected to report back to school on Monday, September 18, 2023. Boarding students should arrive by 4:00 PM, while day students should report by 7:30 AM on Tuesday, September 19.</p>
+                            <p>Please ensure you have all the required items as per the school requirements list.</p>
+                            <a href="#" class="read-more" data-id="1">Read full announcement</a>
+                        </div>
+                    </div>
+                    
+                    <div class="announcement-item">
+                        <div class="announcement-header">
+                            <h3 class="announcement-title">Inter-House Sports Competition</h3>
+                            <span class="announcement-date">August 28, 2025</span>
+                        </div>
+                        <div class="announcement-content">
+                            <p>The annual inter-house sports competition will be held on Saturday, October 7, 2023. All students are expected to participate in at least one event.</p>
+                            <p>Training sessions will begin on September 25. See your house captains for more details.</p>
+                            <a href="#" class="read-more" data-id="2">Read full announcement</a>
+                        </div>
+                    </div>
+                    
+                    <div class="announcement-item">
+                        <div class="announcement-header">
+                            <h3 class="announcement-title">Parent-Teacher Meeting</h3>
+                            <span class="announcement-date">August 20, 2025</span>
+                        </div>
+                        <div class="announcement-content">
+                            <p>The second parent-teacher meeting for the academic year will be held on Saturday, September 30, 2023, from 9:00 AM to 1:00 PM.</p>
+                            <p>All parents and guardians are encouraged to attend to discuss their children's academic progress.</p>
+                            <a href="#" class="read-more" data-id="3">Read full announcement</a>
+                        </div>
+                    </div>
+                    
+                    <div class="announcement-item">
+                        <div class="announcement-header">
+                            <h3 class="announcement-title">Science Fair Winners</h3>
+                            <span class="announcement-date">August 15, 2025</span>
+                        </div>
+                        <div class="announcement-content">
+                            <p>Congratulations to our students who participated in the Regional Science Fair. Our school won three awards, including first place in the Environmental Science category.</p>
+                            <p>The winning projects will be displayed in the school library for the next two weeks.</p>
+                            <a href="#" class="read-more" data-id="4">Read full announcement</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="sidebar">
+                    <h3>Upcoming Events</h3>
+                    <ul class="upcoming-events">
+                        <li class="event-item">
+                            <span class="event-date">Sep 18, 2025</span>
+                            <div class="event-title">Term 3 Begins</div>
+                            <div class="event-desc">All students report back to school</div>
+                        </li>
+                        <li class="event-item">
+                            <span class="event-date">Sep 30, 2025</span>
+                            <div class="event-title">Parent-Teacher Meeting</div>
+                            <div class="event-desc">9:00 AM - 1:00 PM</div>
+                        </li>
+                        <li class="event-item">
+                            <span class="event-date">Oct 7, 2025</span>
+                            <div class="event-title">Inter-House Sports</div>
+                            <div class="event-desc">Annual sports competition</div>
+                        </li>
+                        <li class="event-item">
+                            <span class="event-date">Oct 20, 2025</span>
+                            <div class="event-title">Mid-Term Break</div>
+                            <div class="event-desc">School closed for one week</div>
+                        </li>
+                    </ul>
+                    
+                    <h3 style="margin-top: 2rem;">Quick Links</h3>
+                    <ul class="quick-links">
+                        <li><a href="services.html">Academic Calendar</a></li>
+                        <li><a href="services.html">School Fees Structure</a></li>
+                        <li><a href="services.html">Uniform Requirements</a></li>
+                        <li><a href="contact.html">Contact Administration</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Modal for full announcement -->
+    <div class="modal" id="announcementModal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <h2 class="modal-title" id="modalTitle">Term 3 Opening Date</h2>
+            <div class="modal-date" id="modalDate">Feb 12, 2026</div>
+            <div class="modal-body" id="modalBody">
+                <!-- Content will be loaded dynamically -->
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                     <h3>Contact Us</h3>
+                    <p>Kiganda High School</p>
+                    <p>P.O.BOX 89 Kasande</p>
+                    <p>Kalamba Town, kiganda village Kasanda</p>
+                    <p>Uganda</p>
+                    <p>Phone: +256 783100374</p>
+                    <p>Phone: +256 701373899</p>
+                    <p>Email: kigandahigh@gmail.com</p>
+                </div>
+                <div class="footer-section">
+                    <h3>Quick Links</h3>
+                    <a href="index.html">Home</a>
+                    <a href="about.html">About Us</a>
+                    <a href="services.html">Services</a>
+                    <a href="announcements.html">Announcements</a>
+                    <a href="contact.html">Contact</a>
+                </div>
+                <div class="footer-section">
+                    <h3>Follow Us</h3>
+                    <a href="#">Facebook</a>
+                    <a href="#">Twitter</a>
+                    <a href="#">Instagram</a>
+                    <a href="#">YouTube</a>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2025 Kiganda High School. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile menu toggle
+        document.querySelector('.mobile-menu').addEventListener('click', function() {
+            document.querySelector('nav ul').classList.toggle('show');
+        });
+
+        // Announcement data
+        const announcements = {
+            1: {
+                title: "Term 3 Opening Date",
+                date: "September 5, 2023",
+                content: `
+                    <p>All students are expected to report back to school on Monday, September 18, 2023. Boarding students should arrive by 4:00 PM, while day students should report by 7:30 AM on Tuesday, September 19.</p>
+                    <p>Please ensure you have all the required items as per the school requirements list, which includes:</p>
+                    <ul>
+                        <li>Complete school uniform (including sports wear)</li>
+                        <li>All required textbooks and stationery</li>
+                        <li>Boarding requirements (for boarding students)</li>
+                        <li>Medical form (for new students)</li>
+                    </ul>
+                    <p>Late registration will attract a penalty fee. Parents are reminded to clear all outstanding fees before the beginning of the term.</p>
+                    <p>We look forward to a productive term and wish all our students success in their academic endeavors.</p>
+                `
+            },
+            2: {
+                title: "Inter-House Sports Competition",
+                date: "August 28, 2023",
+                content: `
+                    <p>The annual inter-house sports competition will be held on Saturday, October 7, 2023. This year's theme is "Unity Through Sports".</p>
+                    <p>All students are expected to participate in at least one event. The competition will include:</p>
+                    <ul>
+                        <li>Track events (100m, 200m, 400m, 800m, 1500m)</li>
+                        <li>Field events (Long jump, High jump, Shot put, Javelin)</li>
+                        <li>Team sports (Football, Basketball, Volleyball)</li>
+                        <li>Relay races (4x100m, 4x400m)</li>
+                    </ul>
+                    <p>Training sessions will begin on September 25. See your house captains for more details and to sign up for events.</p>
+                    <p>Parents and guardians are invited to attend and cheer for our students. The event will begin at 8:00 AM and conclude with an awards ceremony at 4:00 PM.</p>
+                `
+            },
+            3: {
+                title: "Parent-Teacher Meeting",
+                date: "August 20, 2023",
+                content: `
+                    <p>The second parent-teacher meeting for the academic year will be held on Saturday, September 30, 2023, from 9:00 AM to 1:00 PM.</p>
+                    <p>All parents and guardians are encouraged to attend to discuss their children's academic progress with the teachers. This is an important opportunity to:</p>
+                    <ul>
+                        <li>Review your child's academic performance</li>
+                        <li>Discuss any challenges or concerns</li>
+                        <li>Learn about upcoming academic activities</li>
+                        <li>Meet with subject teachers and class teachers</li>
+                    </ul>
+                    <p>To facilitate smooth scheduling, we request that parents book appointment slots with specific teachers through the school office by September 25, 2023.</p>
+                    <p>We look forward to your participation in this important event that strengthens the home-school partnership.</p>
+                `
+            },
+            4: {
+                title: "Science Fair Winners",
+                date: "August 15, 2023",
+                content: `
+                    <p>Congratulations to our students who participated in the Regional Science Fair held at the National Science Center from August 10-12, 2023.</p>
+                    <p>Our school won three awards, including:</p>
+                    <ul>
+                        <li>First place in Environmental Science category - Sarah K. (S.4)</li>
+                        <li>Second place in Physics category - David M. (S.5)</li>
+                        <li>Special recognition for Innovation - Green Energy Club</li>
+                    </ul>
+                    <p>Sarah's project on "Sustainable Waste Management in Urban Schools" impressed the judges with its practical approach and potential for implementation.</p>
+                    <p>The winning projects will be displayed in the school library for the next two weeks. All students are encouraged to view these exemplary projects.</p>
+                    <p>We extend our gratitude to the science teachers who guided our students and to all who supported our participation in this important event.</p>
+                `
+            }
+        };
+
+        // Modal functionality
+        const modal = document.getElementById('announcementModal');
+        const modalTitle = document.getElementById('modalTitle');
+        const modalDate = document.getElementById('modalDate');
+        const modalBody = document.getElementById('modalBody');
+        const closeModal = document.querySelector('.close-modal');
+
+        // Add event listeners to "Read more" links
+        document.querySelectorAll('.read-more').forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                const id = this.getAttribute('data-id');
+                const announcement = announcements[id];
+                
+                if (announcement) {
+                    modalTitle.textContent = announcement.title;
+                    modalDate.textContent = announcement.date;
+                    modalBody.innerHTML = announcement.content;
+                    modal.style.display = 'flex';
+                }
+            });
+        });
+
+        // Close modal when X is clicked
+        closeModal.addEventListener('click', function() {
+            modal.style.display = 'none';
+        });
+
+        // Close modal when clicking outside content
+        window.addEventListener('click', function(e) {
+            if (e.target === modal) {
+                modal.style.display = 'none';
+            }
+        });
+    </script>
+</body>
+</html>
